@@ -9,7 +9,7 @@ import torch
 import scipy.special
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from keybert import KeyBERT
-import OUTPUT_DIR, SENTIMENT_THRESHOLD, START_DATE, END_DATE, BASE_URL, BUSINESS_URL, FINANCIAL_KEYWORDS from config import *
+from config import *
 
 tokenizer = AutoTokenizer.from_pretrained("ProsusAI/finbert")
 model_finbert = AutoModelForSequenceClassification.from_pretrained("ProsusAI/finbert")

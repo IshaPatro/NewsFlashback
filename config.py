@@ -1,3 +1,5 @@
+from datetime import datetime
+
 OUTPUT_DIR = "FinancialNewsData"
 BASE_URL = 'https://www.theguardian.com/business/stock-markets'
 BUSINESS_URL = 'https://www.theguardian.com/uk/business'
