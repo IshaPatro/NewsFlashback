@@ -1,5 +1,3 @@
-# NewsFlashback - News Analysis System Dependencies
-
 # Database
 neo4j==5.14.0
 
@@ -27,6 +25,5 @@ sentence-transformers==4.1.0
 # Utilities
 python-dotenv==1.0.0
 requests==2.31.0
-datetime==5.2.0
 keybert==0.7.0
 newspaper3k==0.2.8
