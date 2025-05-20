@@ -3,7 +3,7 @@ streamlit==1.28.0
 python-dotenv==1.0.0
 requests==2.31.0
 
-# Data Analysis
+# Data
 pandas==1.5.3
 numpy==1.24.3
 scipy==1.11.2
@@ -24,8 +24,6 @@ lxml==4.9.3
 google-search-results==2.4.2
 newspaper3k==0.2.8
 
-# Neo4j
+# NLP/Graph
 neo4j==5.14.0
-
-# Text similarity / NLP
 keybert==0.7.0
