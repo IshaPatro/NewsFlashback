@@ -16,7 +16,6 @@ model_finbert = AutoModelForSequenceClassification.from_pretrained("ProsusAI/fin
 kw_model = KeyBERT(model="ProsusAI/finbert")
 
 def is_financial_content(text, url, threshold=2):
-    """Determine if content is financial based on keywords and URL."""
     financial_sections = ['business', 'money', 'finance', 'stock', 'market', 'invest']
     url_score = sum(1 for section in financial_sections if section in url.lower())
     keyword_count = sum(1 for keyword in FINANCIAL_KEYWORDS if keyword in text.lower())
@@ -30,7 +29,6 @@ def is_financial_content(text, url, threshold=2):
     return total_score >= threshold
 
 def fetch_guardian_links(date=None, section_url=BASE_URL):
-    """Fetches article links from the specified section, optionally for a given date."""
     try:
         url = section_url
         if date:
@@ -47,7 +45,6 @@ def fetch_guardian_links(date=None, section_url=BASE_URL):
         return []
 
 def scrape_full_article(url):
-    """Extracts full article text using newspaper3k."""
     try:
         article = Article(url)
         article.download()
@@ -62,7 +59,6 @@ def scrape_full_article(url):
         return {'text': "", 'title': "", 'publish_date': None}
 
 def analyze_sentiment(text):
-    """Analyzes sentiment of text using FinBERT model."""
     try:
         tokenizer_kwargs = {"padding": True, "truncation": True, "max_length": 512}
         with torch.no_grad():
@@ -83,7 +79,6 @@ def analyze_sentiment(text):
         return "neutral", 0.0, {}
 
 def extract_keywords(text, num_keywords=5):
-    """Extract keywords from text using KeyBERT with FinBERT model."""
     try:
         keywords = kw_model.extract_keywords(text, keyphrase_ngram_range=(1, 3), stop_words='english', top_n=num_keywords)
         return [kw[0] for kw in keywords]
@@ -92,7 +87,6 @@ def extract_keywords(text, num_keywords=5):
         return []
 
 def save_to_csv(data, year):
-    """Saves data to a CSV file for the given year."""
     if not data: 
         print(f"No financial articles met the criteria for {year}.")
         return False
@@ -119,11 +113,9 @@ def main():
         year = current_date.year
         print(f"\nFetching articles for {current_date.strftime('%Y-%m-%d')}")
         
-        # Get links from both stock market and general business sections
         stock_links = fetch_guardian_links(current_date)
         business_links = fetch_guardian_links(current_date, BUSINESS_URL)
         
-        # Combine and remove duplicates
         all_links = list(set(stock_links + business_links))
         print(f"Found {len(all_links)} total articles to process")
         
@@ -137,7 +129,6 @@ def main():
             full_text = article_data['text']
             
             if full_text:
-                # First check if the content is financial
                 if is_financial_content(full_text, link):
                     sentiment, probability, scores = analyze_sentiment(full_text)
                     keywords = extract_keywords(full_text)
