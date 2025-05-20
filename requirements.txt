@@ -29,3 +29,4 @@ neo4j==5.14.0
 
 # Text similarity / NLP
 keybert==0.7.0
+disutils==1.2.0
