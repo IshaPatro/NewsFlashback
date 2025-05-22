@@ -96,8 +96,6 @@ def fetch_all_articles_by_categories(categories):
                         "last_updated": record["last_updated"]
                     }
                     articles.append(article_data)
-                
-                st.write(f"Found top 10 articles with highest score for category '{first_category}', subcategory '{first_subcategory}'")
             
             return articles
     except Exception as e:
